@@ -1,23 +1,36 @@
-
 # Download the helper library from https://www.twilio.com/docs/python/install
-#from twilio.rest import Client
+from twilio.rest import Client
+import time
 
-wasserstand = '1.00'
-
-if wasserstand < '2.00':
 # Your Account Sid and Auth Token from twilio.com/console
 # DANGER! This is insecure. See http://twil.io/secure
-    account_sid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-    auth_token = 'your_auth_token'
-    client = Client(account_sid, auth_token)
+wasserstand = "30"
 
-    call = client.calls.create(
-        url='http://connect.julian-bruegger.tk/test.xml',
-        to='+47765974891',
-        from_='+15017122661'
-        )
-    print ('alarm')
-    print(call.sid)
+while True:
+    if wasserstand < "40":
+        
+        nummer = [+41765974891]
+        for i in nummer:
+            account_sid = '****'
+            auth_token = '+++'
+            client = Client(account_sid, auth_token)
+            
 
-else:
-    print ('status i.o.')
+            if wasserstand < "100":
+                #1. Alarm
+                call = client.calls.create(
+                                        url='http://connect.julian-bruegger.tk/test.xml',
+                                        to=(i),
+                                        from_='+12173647471'
+                                    )
+
+                print((i).sid)
+                #2. Alarm
+            elif wasserstand >"80":
+                call = client.calls.create(
+                                        url='http://connect.julian-bruegger.tk/test.xml',
+                                        to=(i),
+                                        from_='+12173647471'
+                                    ) 
+    else:
+        time.sleep(600)
