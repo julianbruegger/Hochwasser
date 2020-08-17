@@ -66,7 +66,7 @@ if __name__ == '__main__':
         while True:
             if distance < owerflow
             call = client.calls.create(
-                        url='http://connect.julian-bruegger.tk/test.xml',
+                        url='http://bach.widacher.tk/nachricht.xmll',
                         to=phone_nr,
                         from_=twilio_nr
                     )

@@ -1,6 +1,7 @@
 # Flooding alert
-Sensorik für einen Hochwasser-Alarm
-
+I Bult an Alarmsystem that Detects if the creek next to my house will owerflow soon. 
+This gives me Time to react and Prevent a flooding of the Houses around me. 
+ 
 ## Instalation
 
 To Install Twilio you need to run the folowing command.
