@@ -1,4 +1,4 @@
 <Response>
-<Say voice="alice" language="de-DE">Alarm, Wasserstand ist hoch, bach kontrollieren!</Say>
-<Play>http://demo.twilio.com/docs/classic.mp3</Play>
+    <Play>http://bach.widacher.tk/Dialup.mp3</Play>
+    <Say voice="alice" language="de-DE">Dies ist eine automatische Alarmmeldung. Der Bach oberhalb des Gebietes Widacher droht zu überlaufen. Es sind noch 20 centimeter bis zum Übertritt. Kein gewähr auf diese Angaben .</Say>
 </Response>
