@@ -1,82 +1,95 @@
-#Libraries
+#Bibliotheken einbinden
 import RPi.GPIO as GPIO
 import time
 import mysql.connector
 from twilio.rest import Client
-import time
+
 
 #Twilio Settings
 account_sid = '***'
 auth_token = '***'
-phone_nr = '***'
-twilio_nr='***'
+phone_nr = '+***'
+twilio_nr='+12173647471'
 client = Client(account_sid, auth_token)
 
-#Alert Settings
-## Distance to Owerflow the creek
-owerflow = '45'
 
-
-#MySQL settings
+# Define db
 mydb = mysql.connector.connect(
-  host="localhost",
-  user="yourusername",
-  password="yourpassword",
-  database="mydatabase"
-)
+    host="192.168.111.61", 
+    user="root",
+    password="***",
+    database="bach")
 mycursor = mydb.cursor()
 
-
-def distance():
-    # set Trigger to HIGH
-    GPIO.output(GPIO_TRIGGER, True)
+#Overflow-Val
+overflow = float('10')
+#GPIO Modus (BOARD / BCM)
+GPIO.setmode(GPIO.BCM)
  
-    # set Trigger after 0.01ms to LOW
+#GPIO Pins zuweisen
+GPIO_TRIGGER = 18
+GPIO_ECHO = 24
+ 
+#Richtung der GPIO-Pins festlegen (IN / OUT)
+GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
+GPIO.setup(GPIO_ECHO, GPIO.IN)
+ 
+def distanz():
+    # setze Trigger auf HIGH
+    GPIO.output(GPIO_TRIGGER, True)
+
+    # setze Trigger nach 0.01ms aus LOW
     time.sleep(0.00001)
     GPIO.output(GPIO_TRIGGER, False)
  
-    StartTime = time.time()
-    StopTime = time.time()
+    StartZeit = time.time()
+    StopZeit = time.time()
  
-    # save StartTime
+    # speichere Startzeit
     while GPIO.input(GPIO_ECHO) == 0:
-        StartTime = time.time()
+        StartZeit = time.time()
  
-    # save time of arrival
+    # speichere Ankunftszeit
     while GPIO.input(GPIO_ECHO) == 1:
-        StopTime = time.time()
+        StopZeit = time.time()
  
-    # time difference between start and arrival
-    TimeElapsed = StopTime - StartTime
-    # multiply with the sonic speed (34300 cm/s)
-    # and divide by 2, because there and back
-    distance = (TimeElapsed * 34300) / 2
+    # Zeit Differenz zwischen Start und Ankunft
+    TimeElapsed = StopZeit - StartZeit
+    # mit der Schallgeschwindigkeit (34300 cm/s) multiplizieren
+    # und durch 2 teilen, da hin und zurueck
+    distanz = (TimeElapsed * 34300) / 2
  
-    return distance
+    return distanz
 
 
-def WriteSQL():
-    sql = "INSERT INTO wasser (time, distanz) VALUES (now(), %s)"
-    val = (distance)
+def sql():
+
+    sql = "INSERT INTO wasser (time, distanz, up) VALUES (now(), %s,%s)"
+    val = (abstand, abstand)
     mycursor.execute(sql, val)
     mydb.commit()
+    print("iz working")
+
 
 if __name__ == '__main__':
     try:
         while True:
-            if distance < owerflow
-            call = client.calls.create(
-                        url='http://bach.widacher.tk/nachricht.xmll',
+            abstand = distanz()
+            if abstand < overflow:
+                sql()
+                call = client.calls.create(
+                        url='http://bach.widacher.tk/nachricht.xml',
                         to=phone_nr,
                         from_=twilio_nr
                     )
-            #After Alert try again in 30Mins
-            WriteSQL():
-            time.sleep(1800)
+                
+                print ("Gemessene Entfernung = %.1f cm" % abstand)
+        
+                time.sleep(1800)
 
             #Try every 5 Mins
             else: 
-                WriteSQL():
+                sql()
 
                 time.sleep(300)
         # Reset by pressing CTRL + C
