@@ -12,12 +12,12 @@
 <h1>Wasserstand - Bach Widacher</h1>
 <nav>
   <ul class="navigation">
-      <li><a class="active" href="index.html">Home</a></li>
+      <li><a class="active" href="index.php">Home</a></li>
       <li><a href="project.html">Über das Projekt</a></li>
       <li><a href="kontakt.html">Kontakt</a></li>
     </ul>
 </nav>
-
+<p class="center"> Die Uhrzeit wird im UTC format angegeben (-2 Stunden). </p>
 <?php
 $servername = "192.168.111.61";
 $username = "root";
@@ -37,7 +37,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
-    echo "<h3>Zeitpunkt :"  . $row["time"]. "</h3><br> <h3>Distanz zum Überlauf " . $row["distanz"]. " Zentimeter </h3><br><h3> Wasserstand " . $row["up"]. " Zentimeter </h3><br>";
+    echo "<h3>Zeitpunkt: "  . $row["time"]. "</h3><br> <h3>Distanz zum Überlauf " . $row["distanz"]. " Zentimeter </h3><br><h3> Wasserstand " . $row["up"]. " Zentimeter </h3><br>";
   }
 } else {
   echo "0 results";

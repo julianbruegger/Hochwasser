@@ -1,6 +1,6 @@
 
 .active {
-    background-color: #07cefc;
+    background-color: #fc07bf;
   }
 
 .sml {
@@ -9,7 +9,7 @@
     
 }  
 body {
-    width: 90%;
+    width: 100%;
 }
 .side{
     margin-top: 30px;
@@ -18,11 +18,16 @@ body {
     justify-content: top; 
     align-items: center;
     flex-direction: column;
-    
+    }
 
-
+.maintext {
+    margin-left: 25%;
+    margin-right: 25%;
+    background-color: lightsteelblue;
+    height: 100%;
 }
 .Home {
+
     width: 50%;
 }
 
@@ -134,7 +139,7 @@ text-decoration: none;
 }
 
 li a:hover {
-background-color: #07cffc7a;
+background-color: #e463d97a;
 }  
 
 
@@ -157,7 +162,7 @@ background-color: #07cffc7a;
     
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1100px) {
     ul {
         flex-direction: column;
     } 
@@ -173,9 +178,12 @@ background-color: #07cffc7a;
     }
     h1 {
         font-size: 35px
-    
-    
-}
+      
+    }
+    .maintext{
+        margin-left: 0%;
+        margin-right: 0%;
+    }
 
 @media screen and (max-width: 480px) {
     ul {
@@ -197,6 +205,10 @@ background-color: #07cffc7a;
 
     h1 {
         font-size: 30px
+    }
+    .maintext{
+        margin-left: 0%;
+        margin-right: 0%;
     }
 }
 }
