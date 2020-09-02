@@ -1,5 +1,6 @@
 # Flooding alert
-I Bult an Alarmsystem that Detects if the creek next to my house will owerflow soon. 
+I Bult an Alarmsystem that Detects if the creek next to my house is going to owerflow soon. In the Case of an aleart calls my mobile-Phone. Allso in the folder `html` you can find a ready Webpage with all the Things neaded to Display the Value to the Public. 
+All the Datapoints are writen in to an MySQL database.
 This gives me Time to react and Prevent a flooding of the Houses around me. 
  
 ## Instalation
@@ -36,3 +37,8 @@ phone_nr = '***'
 #Inster your outbound Twilio Phone Number
 twilio_nr='***'
 ```
+
+## Wiring
+Wire-Up the Sensor as shown in the photo:
+
+<img src="./data/Schaltplan.png" width="80%">

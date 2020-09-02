@@ -75,6 +75,7 @@ if __name__ == '__main__':
     try:
         while True:
             abstand = distanz()
+            stand = float('220')-abstand
             if abstand < overflow:
                 sql()
                 call = client.calls.create(
@@ -93,8 +94,6 @@ if __name__ == '__main__':
 
                 time.sleep(300)
         # Reset by pressing CTRL + C
-    except KeyboardInterrupt:
-        print("Measurement stopped by User")
-        GPIO.cleanup()
-
+    except :
+        pass
     
