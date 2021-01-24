@@ -52,6 +52,11 @@ iframe{
     height: 100%;
     box-shadow: 10px 10px 22px 0px rgba(0,0,0,0.75);
 
+.maintext {
+    margin-left: 25%;
+    margin-right: 25%;
+    background-color: lightsteelblue;
+    height: 100%;
 }
 .Home {
 
