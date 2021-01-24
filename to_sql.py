@@ -4,16 +4,6 @@ import time
 import mysql.connector
 from twilio.rest import Client
 
-
-#Twilio Settings
-account_sid = '***'
-auth_token = '***'
-
-phone_nr = ['***']
-twilio_nr='+***'
-client = Client(account_sid, auth_token)
-
-
 # Define db
 mydb = mysql.connector.connect(
     host="***", 
@@ -23,7 +13,7 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 
 #Overflow-Val
-overflow = float('10')
+overflow = float('5')
 #GPIO Modus (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
  
@@ -77,35 +67,15 @@ if __name__ == '__main__':
         try:
             abstand = float(distanz() - (float("6")))
             stand = (float('220'))-(abstand)
-            if abstand < overflow:
-                time.sleep(120)
-                sql()
-                abstand = distanz() - (float("6"))
+            
+            sql()
 
-                if abstand < overflow:
-                    sql()
-                    for i in phone_nr:
-                        call = client.calls.create(
-                                url='http://bach.widacher.tk/nachricht.xml',
-                                to=(i),
-                                from_=twilio_nr
-                            )
-                        print ("Gemessene Entfernung = %.1f cm" % abstand)
-                    for x in range(600):
-                        sql()
-                        time.sleep(60)
-                else:
-                    sql()
-                    time.sleep (60)
-            #Try every 5 Mins
-            else: 
-                sql()
-
-                time.sleep(300)
+            time.sleep(3)
+        # Reset by pressing CTRL + C
         except:
             print("error")
             GPIO.cleanup()
             time.sleep(300)
             pass
-        
+    
 
