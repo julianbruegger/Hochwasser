@@ -1,5 +1,12 @@
-# python 3.6
+#!/usr/bin/python3
 
+# Created By Julian Bruegger
+# 10.06.2022
+# Questions please contact jul.bruegger(at)gmail.com
+# Infos at thefloodingproject.ml
+
+
+#Bibliotheken einbinden
 import random
 import time
 import config
@@ -8,12 +15,14 @@ from paho.mqtt import client as mqtt_client
 
 topic = "python/mqtt"
 
+username = config.user_mqtt
+password = config.password_mqtt
 broker = config.broker
 port = config.port
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
-username = config.username
-password = config.password
+
+
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
@@ -43,7 +52,7 @@ def publish(client):
         else:
             print(f"Failed to send message to topic {topic}")
         msg_count += 1
-        time.sleep(15)
+        #time.sleep(15)
 
 
 def run():

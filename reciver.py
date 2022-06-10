@@ -1,17 +1,34 @@
-# python3.6
+#!/usr/bin/python3
 
+# Created By Julian Bruegger
+# 10.06.2022
+# Questions please contact jul.bruegger(at)gmail.com
+# Infos at thefloodingproject.ml
+
+
+#Bibliotheken einbinden
 import random
-
+import mysql.connector
 from paho.mqtt import client as mqtt_client
+import time
+import config
 
-
-broker = '77.58.176.71'
-port = 1883
 topic = "python/mqtt"
+
+username = config.user_mqtt
+password = config.password_mqtt
+broker = config.broker
+port = config.port
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
-username = 'mqtt'
-password = '123ict'
+
+mydb = mysql.connector.connect(
+    host = config.host, 
+    user = config.user,
+    password = config.password,
+    database = config.database)
+mycursor = mydb.cursor()
+
 
 
 def connect_mqtt() -> mqtt_client:
@@ -30,16 +47,29 @@ def connect_mqtt() -> mqtt_client:
 
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
-        print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+        #print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+        x = (msg.payload.decode())
+        # print(x)
+        sql(x)
 
     client.subscribe(topic)
     client.on_message = on_message
+    
 
+def sql(mqttdata):
+
+    sql = "INSERT INTO wasser (time, distanz, up) VALUES (now(), %s,%s)"
+    val = (mqttdata, (mqttdata))
+    mycursor.execute(sql, val)
+    mydb.commit()
+    #print("iz working")
 
 def run():
     client = connect_mqtt()
     subscribe(client)
     client.loop_forever()
+    
+    
 
 
 if __name__ == '__main__':

@@ -1,3 +1,11 @@
+#!/usr/bin/python3
+
+# Created By Julian Bruegger
+# 10.06.2022
+# Questions please contact jul.bruegger(at)gmail.com
+# Infos at thefloodingproject.ml
+
+
 #Bibliotheken einbinden
 import RPi.GPIO as GPIO
 import time
